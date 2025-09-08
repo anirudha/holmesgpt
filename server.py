@@ -24,6 +24,7 @@ from litellm.exceptions import AuthenticationError
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from holmes.utils.stream import stream_investigate_formatter, stream_chat_formatter
+from holmes.ag_ui.server import router as ag_ui_router
 from holmes.common.env_vars import (
     HOLMES_HOST,
     HOLMES_PORT,
@@ -121,6 +122,7 @@ if ENABLE_TELEMETRY and SENTRY_DSN:
         )
 
 app = FastAPI()
+app.include_router(ag_ui_router)
 
 
 if LOG_PERFORMANCE:
